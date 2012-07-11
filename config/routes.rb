@@ -1,4 +1,10 @@
 SwoleTracker::Application.routes.draw do
+  resources :exercise_entries
+
+  resources :exercise_details
+
+  resources :exercises
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

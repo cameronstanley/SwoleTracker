@@ -1,0 +1,27 @@
+<h1>Listing exercise_details</h1>
+
+<table>
+  <tr>
+    <th>Sets</th>
+    <th>Reps</th>
+    <th>Weight</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @exercise_details.each do |exercise_detail| %>
+  <tr>
+    <td><%= exercise_detail.sets %></td>
+    <td><%= exercise_detail.reps %></td>
+    <td><%= exercise_detail.weight %></td>
+    <td><%= link_to 'Show', exercise_detail %></td>
+    <td><%= link_to 'Edit', edit_exercise_detail_path(exercise_detail) %></td>
+    <td><%= link_to 'Destroy', exercise_detail, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Exercise detail', new_exercise_detail_path %>
