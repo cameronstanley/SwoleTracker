@@ -1,0 +1,30 @@
+<h1>Workout Tracker </h1>
+<h2>Tracked Exercises for <%= @today.to_s %>:</h2>
+<% if @todays_entries.empty? %>
+	No exercises added.
+<% else %>
+	<% @todays_entries.each_pair do |exercise, details| %>
+		<%= exercise.title %> <br />
+		<% details.each do |detail| %>
+			Sets: <%= detail.sets %> | Reps: <%= detail.reps %> | Weight: <%= detail.weight %><br />
+		<% end %>
+	<% end %>
+<% end %>
+<h2>Choose Exercise or <%= link_to("Create a New Exercise", "/exercises/new") %></h2>
+<%= form_tag("/workout_tracker/track", :method => :post) do %>
+	<%= hidden_field_tag(:date, @today.to_s) %>
+
+	<% @exercises.each do |exercise| %>
+		<%= radio_button_tag("exercise", exercise.id) %>
+		<%= exercise.title %><br />
+	<% end %>
+
+	<h2>Enter Exercise Details</h2>
+	Sets <%= text_field_tag("sets") %>
+	Reps <%= text_field_tag("reps") %>
+	Weight <%= text_field_tag("weight") %>
+
+	<br /><br />
+
+	<%= submit_tag("Track") %>
+<% end %>

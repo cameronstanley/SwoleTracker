@@ -1,4 +1,7 @@
 SwoleTracker::Application.routes.draw do
+  get "workout_tracker/index"
+  post "workout_tracker/track"
+
   resources :exercise_entries
 
   resources :exercise_details
@@ -54,7 +57,7 @@ SwoleTracker::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'workout_tracker#index'
 
   # See how all your routes lay out with "rake routes"
 
