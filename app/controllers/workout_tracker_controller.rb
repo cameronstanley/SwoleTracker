@@ -2,13 +2,18 @@
 class WorkoutTrackerController < ApplicationController
 
   def index
-  	@today = Date.today
-  	@todays_entries = Hash.new
+    # Set to today's date if not already selected
+    if params[:date].nil?
+      @current_date = Date.today
+    else
+      @current_date = Date.parse(params[:date])
+    end
 
-  	# Get all entries for the viewed date
-  	entries = ExerciseEntry.where("date = ?", @today.to_s)
+  	# Get all entries for the selected date
+  	entries = ExerciseEntry.where("date = ?", @current_date.to_s)
 
-  	# Group exercises with associated exercise details
+  	# Group exercises with associated exercise details for selected date
+    @todays_entries = Hash.new
   	entries.each do |entry|
   		exercise = Exercise.find(entry.exercise_id)
   		exercise_detail = ExerciseDetail.find(entry.exercise_detail_id)
@@ -20,7 +25,6 @@ class WorkoutTrackerController < ApplicationController
   		@todays_entries[exercise] << exercise_detail
   	end
 
-  	# Get list of all exercises
   	@exercises = Exercise.all
   end
 

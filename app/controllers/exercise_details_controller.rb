@@ -61,7 +61,7 @@ class ExerciseDetailsController < ApplicationController
 
     respond_to do |format|
       if @exercise_detail.update_attributes(params[:exercise_detail])
-        format.html { redirect_to @exercise_detail, notice: 'Exercise detail was successfully updated.' }
+        format.html { redirect_to "workout_controller", notice: 'Exercise detail was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,6 +75,11 @@ class ExerciseDetailsController < ApplicationController
   def destroy
     @exercise_detail = ExerciseDetail.find(params[:id])
     @exercise_detail.destroy
+
+    exercise_entries = ExerciseEntry.where(:exercise_detail_id => params[:id])
+    exercise_entries.each do |entry|
+      entry.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to exercise_details_url }
