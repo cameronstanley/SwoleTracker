@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 <h2>Tracked Exercises for 
 	<%= link_to("<", "/workout_tracker/index?date=#{@current_date - 1}") %>
-	<%= @current_date.to_s %>:
+	<%= @current_date.to_s %>
 	<%= link_to(">", "/workout_tracker/index?date=#{@current_date + 1}") %>
 </h2>
 <% if @todays_entries.empty? %>
@@ -19,20 +19,24 @@
 	<% end %>
 <% end %>
 <h2>Choose Exercise or <%= link_to("Create a New Exercise", "/exercises/new") %></h2>
-<%= form_tag("/workout_tracker/track", :method => :post) do %>
-	<%= hidden_field_tag(:date, @current_date.to_s) %>
+<% if @exercises.empty? %>
+	No exercises. <%= link_to("Create one.", "/exercises/new") %>
+<% else %>
+	<%= form_tag("/workout_tracker/track", :method => :post) do %>
+		<%= hidden_field_tag(:date, @current_date.to_s) %>
 
-	<% @exercises.each do |exercise| %>
-		<%= radio_button_tag("exercise", exercise.id) %>
-		<%= exercise.title %><br />
+		<% @exercises.each do |exercise| %>
+			<%= radio_button_tag("exercise", exercise.id) %>
+			<%= exercise.title %><br />
+		<% end %>
+
+		<h2>Enter Exercise Details</h2>
+		Sets <%= text_field_tag("sets") %>
+		Reps <%= text_field_tag("reps") %>
+		Weight <%= text_field_tag("weight") %>
+
+		<br /><br />
+
+		<%= submit_tag("Track") %>
 	<% end %>
-
-	<h2>Enter Exercise Details</h2>
-	Sets <%= text_field_tag("sets") %>
-	Reps <%= text_field_tag("reps") %>
-	Weight <%= text_field_tag("weight") %>
-
-	<br /><br />
-
-	<%= submit_tag("Track") %>
 <% end %>

@@ -5,10 +5,27 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width-device-width, initial-scale=1.0">
 </head>
 <body>
-
-<%= yield %>
-
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<ul class="nav">
+					<li class="">
+						<a href="/workout_tracker/index">Workout Tracker</a>
+					</li>
+					<li class="">
+						<a href="/exercises">Exercises</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="span9"><%= yield %></div>
+		</div>
+	</div>
 </body>
 </html>
