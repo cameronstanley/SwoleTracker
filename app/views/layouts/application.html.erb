@@ -13,10 +13,13 @@
 			<div class="container">
 				<ul class="nav">
 					<li class="">
-						<a href="/workout_tracker/index">Workout Tracker</a>
+						<%= link_to "Workout Tracker", "/workout_tracker/index" %>
 					</li>
 					<li class="">
-						<a href="/exercises">Exercises</a>
+						<%= link_to "Health Tracker", "/health_tracker/index" %>
+					</li>
+					<li class="">
+						<%= link_to "Exercises", exercises_path() %>
 					</li>
 				</ul>
 			</div>

@@ -1,42 +1,33 @@
-<h1>Workout Tracker </h1>
-<p id="notice"><%= notice %></p>
-<h2>Tracked Exercises for 
-	<%= link_to("<", "/workout_tracker/index?date=#{@current_date - 1}") %>
-	<%= @current_date.to_s %>
-	<%= link_to(">", "/workout_tracker/index?date=#{@current_date + 1}") %>
-</h2>
-<% if @todays_entries.empty? %>
-	No exercises added.
+<% previous_date = @date - 1 %>
+<% next_date = @date + 1 %>
+<h1>Workout Tracker</h1>
+<h3>Tracked exercises for 
+	<%= link_to '< ', '/workout_tracker/index?date=' << previous_date.to_s %>
+	<%= @date.to_s %>
+	<%= link_to '>', '/workout_tracker/index?date=' << next_date.to_s %>
+</h3>
+<% if @exercise_entries.length == 0 %>
+	<p>No exercises entered for today.</p>
 <% else %>
-	<% @todays_entries.each_pair do |exercise, details| %>
-		<%= exercise.title %> <br />
-		<% details.each do |detail| %>
-			Sets: <%= detail.sets %> | Reps: <%= detail.reps %> | Weight: <%= detail.weight %>
-			<%= link_to("Edit", edit_exercise_detail_path(detail)) %>
-			<%= link_to("Delete", exercise_detail_path(detail), :confirm=>"Are you sure?", :method => :delete) %>
-			<br /><br />
+	<% @exercise_entries.keys.each do |exercise| %>
+		<h3><%= exercise.title %></h3>
+		<% @exercise_entries[exercise].each do |detail| %>
+		Sets: <%= detail.sets %> |
+		Reps: <%= detail.reps %> |
+		Weight: <%= detail.weight %> <br />
 		<% end %>
 	<% end %>
 <% end %>
-<h2>Choose Exercise or <%= link_to("Create a New Exercise", "/exercises/new") %></h2>
-<% if @exercises.empty? %>
-	No exercises. <%= link_to("Create one.", "/exercises/new") %>
-<% else %>
-	<%= form_tag("/workout_tracker/track", :method => :post) do %>
-		<%= hidden_field_tag(:date, @current_date.to_s) %>
-
-		<% @exercises.each do |exercise| %>
-			<%= radio_button_tag("exercise", exercise.id) %>
-			<%= exercise.title %><br />
-		<% end %>
-
-		<h2>Enter Exercise Details</h2>
-		Sets <%= text_field_tag("sets") %>
-		Reps <%= text_field_tag("reps") %>
-		Weight <%= text_field_tag("weight") %>
-
-		<br /><br />
-
-		<%= submit_tag("Track") %>
+<%= form_tag "/workout_tracker/track" do %>
+	<h3>Select Exercise or <%= link_to 'Create a New Exercise', '/exercises/new' %></h3>
+	<% @exercises.each do |exercise| %>
+		<%= radio_button_tag(:exercise, exercise.id) %> <%= exercise.title %><br />
 	<% end %>
+	<h3>Enter Exercise Details</h3>
+	Sets: <%= text_field_tag(:sets) %>
+	Reps: <%= text_field_tag(:reps) %>
+	Weight: <%= text_field_tag(:weight) %>
+	<br />
+	<%= hidden_field_tag(:date, @date.to_s) %>
+	<%= submit_tag('Track') %>
 <% end %>

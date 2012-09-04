@@ -22,6 +22,10 @@ end
 
 gem 'jquery-rails'
 
+gem 'authlogic'
+
+gem "rails3-generators"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

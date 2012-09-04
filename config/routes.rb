@@ -1,4 +1,6 @@
 SwoleTracker::Application.routes.draw do
+  get "health_tracker/index"
+
   get "workout_tracker/index"
   post "workout_tracker/track"
 
