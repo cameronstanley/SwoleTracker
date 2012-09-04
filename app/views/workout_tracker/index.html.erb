@@ -1,33 +1,84 @@
-<% previous_date = @date - 1 %>
-<% next_date = @date + 1 %>
+<div class="row">
+<div class="span12">
+
 <h1>Workout Tracker</h1>
-<h3>Tracked exercises for 
-	<%= link_to '< ', '/workout_tracker/index?date=' << previous_date.to_s %>
-	<%= @date.to_s %>
-	<%= link_to '>', '/workout_tracker/index?date=' << next_date.to_s %>
-</h3>
+<legend>Workout - <%= @date.to_formatted_s(:long_ordinal) %></legend>
+
 <% if @exercise_entries.length == 0 %>
 	<p>No exercises entered for today.</p>
 <% else %>
 	<% @exercise_entries.keys.each do |exercise| %>
 		<h3><%= exercise.title %></h3>
-		<% @exercise_entries[exercise].each do |detail| %>
-		Sets: <%= detail.sets %> |
-		Reps: <%= detail.reps %> |
-		Weight: <%= detail.weight %> <br />
-		<% end %>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Sets</th>
+					<th>Reps</th>
+					<th>Weight</th>
+				</tr>
+			</thead>
+			<% @exercise_entries[exercise].each do |detail| %>
+			<tr>
+				<td><%= detail.sets %></td>
+				<td><%= detail.reps %></td>
+				<td><%= detail.weight %></td>
+			</tr>
+			<% end %>
+		</table>
+		<br />
 	<% end %>
 <% end %>
+
 <%= form_tag "/workout_tracker/track" do %>
-	<h3>Select Exercise or <%= link_to 'Create a New Exercise', '/exercises/new' %></h3>
-	<% @exercises.each do |exercise| %>
-		<%= radio_button_tag(:exercise, exercise.id) %> <%= exercise.title %><br />
-	<% end %>
-	<h3>Enter Exercise Details</h3>
-	Sets: <%= text_field_tag(:sets) %>
-	Reps: <%= text_field_tag(:reps) %>
-	Weight: <%= text_field_tag(:weight) %>
-	<br />
-	<%= hidden_field_tag(:date, @date.to_s) %>
-	<%= submit_tag('Track') %>
+	<legend>Track</legend>
+
+	<div class="row">
+
+		<div class="span6">
+			<h3>Select Exercise or <%= link_to 'Create a New Exercise', '/exercises/new' %></h3>
+			<% @exercises.each do |exercise| %>
+				<label class="radio">
+					<%= radio_button_tag(:exercise, exercise.id) %> 
+					<%= exercise.title %>
+				</label>
+			<% end %>
+		</div>
+	
+		<div class="span6">
+			<h3>Enter Details</h3>
+			<div class="control-group">	
+				<%= label_tag(:sets, "Sets", :class => "control-label")  %>
+				<div class="controls">
+					<%= text_field_tag(:sets) %>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<%= label_tag(:reps, "Reps", :class => "control-label") %> 
+				<div class="controls">
+					<%= text_field_tag(:reps) %>
+				</div>
+			</div>
+				
+			<div class="control-group">
+				<%= label_tag(:weight, "Weight", :class => "control-label") %> 
+				<div class="controls">
+					<%= text_field_tag(:weight) %>
+				</div>
+			</div>
+				
+			<%= hidden_field_tag(:date, @date.to_s) %>
+				
+			<div class="control-group">
+				<div class="controls">	
+					<%= submit_tag('Track') %>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 <% end %>
+
+</div>
+</div>
