@@ -7,12 +7,20 @@ class WorkoutTrackerController < ApplicationController
   	if params[:date].nil?
   		@date = Date.today
   	else
-  		@date = Date.parse(params[:date])
+      # Make sure date is valid; if not, default to today's date
+      begin
+        Date.parse(params[:date])
+  		  @date = Date.parse(params[:date])
+      rescue
+        @date = Date.today
+      end
   	end
 
-  	# Get exercise entries for date
-  	@exercise_entries = Hash.new
+    # Get exercise entries for date
   	entries = ExerciseEntry.where("date = ?", @date.to_s)
+
+    # Gather exercise entries for date in hash; key is the exercise and value is an array of associated exercise details
+    @exercise_entries = Hash.new
   	entries.each do |entry|
   		exercise = Exercise.find(entry.exercise_id)
   		exercise_detail = ExerciseDetail.find(entry.exercise_detail_id)

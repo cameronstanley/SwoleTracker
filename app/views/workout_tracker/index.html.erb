@@ -32,8 +32,8 @@ $(function() {
 		<div id="calender" data-date-format="yyyy-mm-dd" data-date="<%= @date.to_s %>" style="float: left; margin-left:12px; margin-right: 12px;">
 			<span><i class="icon-calendar"></i></span>
 		</div>
-		<a href="/workout_tracker/index?date=<%= previous_date%>" class="btn">Previous Day</a>
-		<a href="/workout_tracker/index?date=<%= next_date%>" class="btn">Next Day</a>
+		<a href="/workout_tracker/index?date=<%= previous_date%>" class="btn"><i class="icon-arrow-left"></i> Previous</a>
+		<a href="/workout_tracker/index?date=<%= next_date%>" class="btn">Next <i class="icon-arrow-right"></i></a>
 	</div>
 </legend>
 
