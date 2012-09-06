@@ -39,7 +39,7 @@ class WorkoutTrackerController < ApplicationController
 			exercise_entry.save
 		end
 
-		redirect_to :controller => :workout_tracker, :action => :index
+		redirect_to :controller => :workout_tracker, :action => :index, :date => params[:date]
   end
 
 end

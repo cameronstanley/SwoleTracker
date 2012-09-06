@@ -1,17 +1,51 @@
+<% previous_date = @date - 1 %>
+<% next_date = @date + 1 %>
+
+<script type="text/javascript">
+function padWithZeroes(number, length) {
+	var str = '' + number; 
+	while (str.length < length) {
+		str = '0' + str;
+	}
+
+	return str;
+}
+
+$(function() {
+		$("#calender").datepicker()
+			.on('changeDate', function(ev) {
+				var date = "";
+				date += ev.date.getFullYear() + "-" + padWithZeroes(ev.date.getMonth() + 1, 2) + "-" + 
+					padWithZeroes(ev.date.getDate(), 2);
+				date = window.location.href="/workout_tracker/index?date=" + date;
+			});
+});
+</script>
+
 <div class="row">
 <div class="span12">
 
 <h1>Workout Tracker</h1>
-<legend>Workout - <%= @date.to_formatted_s(:long_ordinal) %></legend>
+<legend>
+	<%= @date.to_formatted_s(:long_ordinal) %>
+	<div style="float: right; right: 0">
+		<div id="calender" data-date-format="yyyy-mm-dd" data-date="<%= @date.to_s %>" style="float: left; margin-left:12px; margin-right: 12px;">
+			<span><i class="icon-calendar"></i></span>
+		</div>
+		<a href="/workout_tracker/index?date=<%= previous_date%>" class="btn">Previous Day</a>
+		<a href="/workout_tracker/index?date=<%= next_date%>" class="btn">Next Day</a>
+	</div>
+</legend>
 
 <% if @exercise_entries.length == 0 %>
-	<p>No exercises entered for today.</p>
+	<p>No exercises tracked for today.</p>
+	<br />
 <% else %>
 	<% @exercise_entries.keys.each do |exercise| %>
 		<h3><%= exercise.title %></h3>
 		<table class="table table-bordered">
 			<thead>
-				<tr>
+				<tr style="background-color: #999999; color: #333333;">
 					<th>Sets</th>
 					<th>Reps</th>
 					<th>Weight</th>
@@ -36,6 +70,7 @@
 
 		<div class="span6">
 			<h3>Select Exercise or <%= link_to 'Create a New Exercise', '/exercises/new' %></h3>
+			<br />
 			<% @exercises.each do |exercise| %>
 				<label class="radio">
 					<%= radio_button_tag(:exercise, exercise.id) %> 
@@ -46,6 +81,7 @@
 	
 		<div class="span6">
 			<h3>Enter Details</h3>
+			<br />
 			<div class="control-group">	
 				<%= label_tag(:sets, "Sets", :class => "control-label")  %>
 				<div class="controls">
@@ -71,7 +107,7 @@
 				
 			<div class="control-group">
 				<div class="controls">	
-					<%= submit_tag('Track') %>
+					<%= submit_tag('Track', :class => "btn btn-primary") %>
 				</div>
 			</div>
 		</div>
