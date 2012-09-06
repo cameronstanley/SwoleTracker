@@ -4,9 +4,10 @@ SwoleTracker::Application.routes.draw do
   get "workout_tracker/index"
   post "workout_tracker/track"
 
-  resources :exercise_entries
+  # WorkoutTracker fulfils ExerciseEntries actions
+  # resources :exercise_entries
 
-  resources :exercise_details
+  resources :exercise_details, :only => [:edit, :update, :destroy]
 
   resources :exercises
 

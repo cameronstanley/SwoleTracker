@@ -36,6 +36,7 @@ class ExerciseDetailsController < ApplicationController
   # GET /exercise_details/1/edit
   def edit
     @exercise_detail = ExerciseDetail.find(params[:id])
+    @date = params[:date]
   end
 
   # POST /exercise_details
@@ -59,9 +60,11 @@ class ExerciseDetailsController < ApplicationController
   def update
     @exercise_detail = ExerciseDetail.find(params[:id])
 
+    date = params[:date]
+
     respond_to do |format|
       if @exercise_detail.update_attributes(params[:exercise_detail])
-        format.html { redirect_to "workout_controller", notice: 'Exercise detail was successfully updated.' }
+        format.html { redirect_to (url_for :controller => 'workout_tracker', :action => 'index', :date => date), notice: 'Exercise detail was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -81,8 +84,10 @@ class ExerciseDetailsController < ApplicationController
       entry.destroy
     end
 
+    date = params[:date]
+
     respond_to do |format|
-      format.html { redirect_to exercise_details_url }
+      format.html { redirect_to (url_for :controller => 'workout_tracker', :action => 'index', :date => date) }
       format.json { head :no_content }
     end
   end

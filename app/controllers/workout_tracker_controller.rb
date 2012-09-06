@@ -2,7 +2,6 @@
 class WorkoutTrackerController < ApplicationController
 
   def index
-
   	# Default to today's date if none specified in params
   	if params[:date].nil?
   		@date = Date.today
@@ -24,18 +23,16 @@ class WorkoutTrackerController < ApplicationController
   	entries.each do |entry|
   		exercise = Exercise.find(entry.exercise_id)
   		exercise_detail = ExerciseDetail.find(entry.exercise_detail_id)
+
   		if @exercise_entries[exercise].nil?
   			@exercise_entries[exercise] = Array.new
   		end
+      
   		@exercise_entries[exercise] << exercise_detail
   	end
 
   	# Get list of exercises
   	@exercises = Exercise.all
-
-  	# Create new exercise entry
-  	@new_exercise_entry = ExerciseEntry.new
-
   end
 
 	def track

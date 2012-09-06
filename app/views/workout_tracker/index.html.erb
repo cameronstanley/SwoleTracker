@@ -32,8 +32,8 @@ $(function() {
 		<div id="calender" data-date-format="yyyy-mm-dd" data-date="<%= @date.to_s %>" style="float: left; margin-left:12px; margin-right: 12px;">
 			<span><i class="icon-calendar"></i></span>
 		</div>
-		<a href="/workout_tracker/index?date=<%= previous_date%>" class="btn"><i class="icon-arrow-left"></i> Previous</a>
-		<a href="/workout_tracker/index?date=<%= next_date%>" class="btn">Next <i class="icon-arrow-right"></i></a>
+		<a href="/workout_tracker/index?date=<%= previous_date %>" class="btn"><i class="icon-arrow-left"></i> Previous</a>
+		<a href="/workout_tracker/index?date=<%= next_date %>" class="btn">Next <i class="icon-arrow-right"></i></a>
 	</div>
 </legend>
 
@@ -49,6 +49,7 @@ $(function() {
 					<th>Sets</th>
 					<th>Reps</th>
 					<th>Weight</th>
+					<th></th>
 				</tr>
 			</thead>
 			<% @exercise_entries[exercise].each do |detail| %>
@@ -56,6 +57,10 @@ $(function() {
 				<td><%= detail.sets %></td>
 				<td><%= detail.reps %></td>
 				<td><%= detail.weight %></td>
+				<td>
+					<%= link_to "Edit", edit_exercise_detail_path(detail, :date => @date), :class => "btn" %>
+					<%= link_to "Delete", exercise_detail_path(detail, :date => @date), :method => :delete, :confirm => "Are you sure you would like to delete this entry?", :class => "btn" %>
+				</td>	
 			</tr>
 			<% end %>
 		</table>
