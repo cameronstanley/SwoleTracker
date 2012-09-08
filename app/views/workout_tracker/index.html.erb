@@ -2,24 +2,24 @@
 <% next_date = @date + 1 %>
 
 <script type="text/javascript">
-function padWithZeroes(number, length) {
-	var str = '' + number; 
-	while (str.length < length) {
-		str = '0' + str;
+	function padWithZeroes(number, length) {
+		var str = '' + number; 
+		while (str.length < length) {
+			str = '0' + str;
+		}
+
+		return str;
 	}
 
-	return str;
-}
-
-$(function() {
-		$("#calender").datepicker()
-			.on('changeDate', function(ev) {
-				var date = "";
-				date += ev.date.getFullYear() + "-" + padWithZeroes(ev.date.getMonth() + 1, 2) + "-" + 
-					padWithZeroes(ev.date.getDate(), 2);
-				date = window.location.href="/workout_tracker/index?date=" + date;
-			});
-});
+	$(function() {
+			$("#calender").datepicker()
+				.on('changeDate', function(ev) {
+					var date = "";
+					date += ev.date.getFullYear() + "-" + padWithZeroes(ev.date.getMonth() + 1, 2) + "-" + 
+						padWithZeroes(ev.date.getDate(), 2);
+					date = window.location.href="/workout_tracker/index?date=" + date;
+				});
+	});
 </script>
 
 <div class="row">
@@ -37,7 +37,7 @@ $(function() {
 	</div>
 </legend>
 
-<% if !flash[:errors].nil? %>
+<% if !flash[:errors].nil? && flash[:errors].length > 0 %>
 	<div class="alert alert-error">
 	<% flash[:errors].each do |error| %>
 		<%= error %><br />
