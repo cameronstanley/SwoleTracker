@@ -87,7 +87,7 @@ class ExerciseDetailsController < ApplicationController
     date = params[:date]
 
     respond_to do |format|
-      format.html { redirect_to (url_for :controller => 'workout_tracker', :action => 'index', :date => date) }
+      format.html { redirect_to (url_for :controller => 'workout_tracker', :action => 'index', :date => date), :notice => 'Exercise detail was sucessfully deleted.' }
       format.json { head :no_content }
     end
   end

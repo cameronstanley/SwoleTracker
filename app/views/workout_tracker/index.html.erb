@@ -37,6 +37,20 @@ $(function() {
 	</div>
 </legend>
 
+<% if !flash[:errors].nil? %>
+	<div class="alert alert-error">
+	<% flash[:errors].each do |error| %>
+		<%= error %><br />
+	<% end %>
+	</div>
+<% end %>
+
+<% if !notice.nil? %>
+	<div class="alert alert-success">
+		<%= notice %>
+	</div>
+<% end %>
+
 <% if @exercise_entries.length == 0 %>
 	<p>No exercises tracked for today.</p>
 	<br />
