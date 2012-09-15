@@ -1,10 +1,31 @@
 SwoleTracker::Application.routes.draw do
+  # Welcome Controller
   get "welcome/index"
 
+  match 'welcome' => 'welcome#index'
+
+  # UserSessions Controller
+  match 'login' => 'user_sessions#new', :as => :login, :via => 'get'
+  match 'login' => 'user_sessions#create', :as => :login, :via => 'post'
+  match 'logout' => 'user_sessions#destroy'
+
+  # Users Controller
+  resources :users
+  resource :user, :as => 'account'
+
+  match 'signup' => 'users#new', :as => :signup, :via => 'get'
+  match 'signup' => 'users#create', :as => :signup, :via => 'post'
+
+  # Health Tracker Controller
   get "health_tracker/index"
 
+  match 'health_tracker' => 'health_tracker#index'
+
+  # Workout Tracker
   get "workout_tracker/index"
   post "workout_tracker/track"
+
+  match 'workout_tracker' => 'workout_tracker#index'
 
   # WorkoutTracker fulfils ExerciseEntries actions
   # resources :exercise_entries

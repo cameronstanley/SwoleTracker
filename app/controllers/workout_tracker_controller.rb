@@ -1,6 +1,8 @@
 
 class WorkoutTrackerController < ApplicationController
 
+  before_filter :require_user
+
   def index
 
   	# Default to today's date if none specified in params
@@ -17,7 +19,7 @@ class WorkoutTrackerController < ApplicationController
   	end
 
     # Get exercise entries for date
-  	entries = ExerciseEntry.where("date = ?", @date.to_s)
+  	entries = ExerciseEntry.where("date = ? AND user_id = ?", @date.to_s, @current_user.id)
 
     # Gather exercise entries for date in hash; key is the exercise and value is an array of associated exercise details
     @exercise_entries = Hash.new
@@ -57,7 +59,7 @@ class WorkoutTrackerController < ApplicationController
       if exercise_detail.save
 
         # Create exercise entry
-  		  exercise_entry = ExerciseEntry.new(:date => params[:date], :exercise_id => exercise.id, :exercise_detail_id => exercise_detail.id) 
+  		  exercise_entry = ExerciseEntry.new(:date => params[:date], :exercise_id => exercise.id, :exercise_detail_id => exercise_detail.id, :user_id => @current_user.id) 
         if !exercise_entry.save
 
           # Exercise entry could not be created; destroy previously created exercise detail

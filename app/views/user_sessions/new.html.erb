@@ -1,0 +1,44 @@
+<div class="row">
+<div class="span12">
+
+<h1>Login</h1>
+<br />
+<p><strong>Don't have an account? (<%= link_to "Signup", signup_url %>)</strong></p>
+
+<% if !@error.nil? %>
+  <div class="alert alert-error">
+    <%= @error %>
+  </div>
+<% end %>
+
+<%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
+	<div class="control-group">
+  	<%= f.label :login, "Username" %>
+  	<div class="controls">
+  		<%= f.text_field :login %>
+  	</div>
+	</div>
+
+	<div class="control-group">
+  	<%= f.label :password %>
+  	<div class="controls">
+  		<%= f.password_field :password %>
+  	</div>
+  </div>
+  
+  <div class="control-group">
+    <label class="checkbox">
+    	<%= f.check_box :remember_me %> Remember Me
+    </label>
+  </div>
+
+  <div class="control-group">
+  	<div class="controls">
+  		<%= f.submit "Login", :class => "btn btn-primary" %>
+  	</div>
+  </div>
+
+<% end %>
+
+</div>
+</div>

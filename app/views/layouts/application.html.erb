@@ -11,14 +11,23 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-				<a class="brand" href="/welcome/index">Swole Tracker</a>
+				<a class="brand" href="/welcome">Swole Tracker</a>
 				<ul class="nav">
-					<li class="">
-						<%= link_to "Workouts", "/workout_tracker/index" %>
-					</li>
-					<li class="">
-						<%= link_to "Health", "/health_tracker/index" %>
-					</li>
+					<% if @current_user %>
+						<li class="">
+							<%= link_to "Workouts", workout_tracker_url %>
+						</li>
+						<li class="">
+							<%= link_to "Health", health_tracker_url %>
+						</li>
+						<li class="">
+							<%= link_to "Logout", logout_url %>
+						</li>
+					<% else %>
+						<li class="">
+							<%= link_to "Login", login_url %>
+						</li>
+					<% end %>
 				</ul>
 			</div>
 		</div>

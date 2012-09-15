@@ -1,6 +1,8 @@
 
 class HealthTrackerController < ApplicationController
 
+  before_filter :require_user
+
   def index
 
   	# Default to today's date if none specified in params
@@ -15,8 +17,6 @@ class HealthTrackerController < ApplicationController
         @date = Date.today
       end
   	end
-
-  	
 
   end
 
