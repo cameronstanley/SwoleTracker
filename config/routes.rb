@@ -1,8 +1,6 @@
 SwoleTracker::Application.routes.draw do
   # Welcome Controller
-  get "welcome/index"
-
-  match 'welcome' => 'welcome#index'
+  match 'welcome' => 'welcome#index', :via => 'get'
 
   # UserSessions Controller
   match 'login' => 'user_sessions#new', :as => :login, :via => 'get'
@@ -10,14 +8,13 @@ SwoleTracker::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy'
 
   # Users Controller
-  resources :users
-  resource :user, :as => 'account'
-
   match 'signup' => 'users#new', :as => :signup, :via => 'get'
   match 'signup' => 'users#create', :as => :signup, :via => 'post'
 
   # Health Tracker Controller
   get "health_tracker/index"
+  post "health_tracker/track"
+  put "health_tracker/track"
 
   match 'health_tracker' => 'health_tracker#index'
 

@@ -37,5 +37,56 @@
 	</div>
 </legend>
 
+<%= show_notice %>
+<%= show_error %>
+
+<h3>Enter Details</h3>
+<br />
+<%= form_for @health_entry, :url => '/health_tracker/track' do |f| %>
+	<div class="control-group">
+		<%= f.label :weight %>
+		<div class="controls">
+			<%= f.text_field :weight %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :body_fat, "Body Fat %" %>
+		<div class="controls">
+			<%= f.text_field :body_fat %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :body_water, "Total Body Water %" %>
+		<div class="controls">
+			<%= f.text_field :body_water %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :muscle_mass, "Muscle Mass %" %>
+		<div class="controls">
+			<%= f.text_field :muscle_mass %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :bone_mass, "Bone Mass" %>
+		<div class="controls">
+			<%= f.text_field :bone_mass %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
+			<%= f.submit "Track", :class => "btn btn-primary" %>
+		</div>
+	</div>
+
+	<%= f.hidden_field :date, :value => @date.to_s %>
+
+<% end %>
+
 </div>
 </div>

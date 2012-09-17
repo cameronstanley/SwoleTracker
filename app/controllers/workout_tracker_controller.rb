@@ -19,7 +19,7 @@ class WorkoutTrackerController < ApplicationController
   	end
 
     # Get exercise entries for date
-  	entries = ExerciseEntry.where("date = ? AND user_id = ?", @date.to_s, @current_user.id)
+  	entries = ExerciseEntry.where(:date => @date, :user_id => @current_user.id)
 
     # Gather exercise entries for date in hash; key is the exercise and value is an array of associated exercise details
     @exercise_entries = Hash.new
