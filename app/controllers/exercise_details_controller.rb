@@ -1,5 +1,8 @@
 
 class ExerciseDetailsController < ApplicationController
+
+  before_filter :require_user
+
   # GET /exercise_details
   # GET /exercise_details.json
   def index

@@ -1,5 +1,8 @@
 
 class ExerciseEntriesController < ApplicationController
+
+  before_filter :require_user
+
   # GET /exercise_entries
   # GET /exercise_entries.json
   def index

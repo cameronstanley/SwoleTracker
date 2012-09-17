@@ -5,11 +5,8 @@
 <br />
 <p><strong>Don't have an account? (<%= link_to "Signup", signup_url %>)</strong></p>
 
-<% if !@error.nil? %>
-  <div class="alert alert-error">
-    <%= @error %>
-  </div>
-<% end %>
+<%= show_notice %>
+<%= show_error %>
 
 <%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
 	<div class="control-group">

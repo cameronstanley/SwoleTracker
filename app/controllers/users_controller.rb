@@ -15,7 +15,9 @@ class UsersController < ApplicationController
 			redirect_to login_url
 			return
 		else
-			@error = "There was a problem creating your account. Please try again."
+			errors = Array.new
+			@user.errors.full_messages.each {|msg| errors << msg}
+			flash[:errors] = errors
 			render :action => :new
 			return
 		end

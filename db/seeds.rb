@@ -14,4 +14,4 @@ Exercise.create!(:title => "Bench Press")
 Exercise.create!(:title => "Power Clean")
 
 # Create test user
-User.create!(:login => "test", :email => "email@gmail.com", :password => "test123", :password_confirmation => "test123")
+User.create!(:login => "test", :email => "email@gmail.com", :password => "abc123", :password_confirmation => "abc123")

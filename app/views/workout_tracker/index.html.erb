@@ -37,19 +37,8 @@
 	</div>
 </legend>
 
-<% if !flash[:errors].nil? && flash[:errors].length > 0 %>
-	<div class="alert alert-error">
-	<% flash[:errors].each do |error| %>
-		<%= error %><br />
-	<% end %>
-	</div>
-<% end %>
-
-<% if !notice.nil? %>
-	<div class="alert alert-success">
-		<%= notice %>
-	</div>
-<% end %>
+<%= show_notice %>
+<%= show_errors %>
 
 <% if @exercise_entries.length == 0 %>
 	<p>No exercises tracked for today.</p>

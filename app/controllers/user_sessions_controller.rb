@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
 		if @user_session.save
 			redirect_back_or_default workout_tracker_url
 		else
-			@error = "Unsuccessful login. Please try again."
+			flash.now[:error] = "Unsuccessful login. Please try again."
 			render :new
 		end
 	end
