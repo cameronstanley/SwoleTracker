@@ -1,0 +1,27 @@
+<div class="row">
+<div class="span12">
+
+<h1>Dashboard</h1>
+<legend>
+	<%= @date.to_formatted_s(:long_ordinal) %>
+</legend>
+
+<h2>Workouts</h2>
+<p>You've tracked <span style="font-size: large; font-weight: bold;"><%= pluralize @exercise_entries_today, "entry" %></span> today.</p>
+<p>You've have tracked <span style="font-size: large; font-weight: bold;"><%= pluralize @exercise_entries_today, "entry" %></span> over your career.</p>
+<p><%= link_to 'Workout Tracker', workout_tracker_url, :class => "btn btn-primary" %></p>
+
+<hr>
+
+<h2>Health</h2>
+<% if @health_entries_today < 1 %>
+	<p>You haven't tracked your health stats for today.</p>
+<% else %>
+	<p>You've tracked your health stats for today.</p>
+<% end %>
+
+<p>You have tracked health entries for <span style="font-size: large; font-weight: bold;"><%= pluralize @health_entries_today, "day" %></span> over your career.</p>
+<p><%= link_to 'Health Tracker', health_tracker_url, :class => "btn btn-primary" %></p>
+
+</div>
+</div>

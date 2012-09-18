@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
 	has_many :exercise_entries, :dependent => :destroy
 	has_many :health_entries, :dependent => :destroy
 
-	acts_as_authentic do |c|
+	begin
+		acts_as_authentic do |c|
+		end
+	rescue
 	end
 end
